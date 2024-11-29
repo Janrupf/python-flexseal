@@ -51,7 +51,7 @@ class InstallReport(QueryableInstall):
                         self._enable_extra(requirement, enabled_extra)
 
             for enabled_extra in enabled_package_extras:
-                for requirement in package.data.metadata.requires_dist:
+                for requirement in package.data.metadata.requires_dist or []:
                     environment = self._environment_with_extra(enabled_extra)
                     if requirement.marker is not None and requirement.marker.evaluate(environment):
                         if self._enable_extra(requirement, enabled_extra):

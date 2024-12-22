@@ -1,2 +1,2 @@
-packaging>=24.1, <25
+packaging>=24.2, <25
 pydantic>=2.9.2, <3

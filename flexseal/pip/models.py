@@ -20,11 +20,6 @@ class _MetadataPydanticAnnotation:
             _handler: Callable[[Any], core_schema.CoreSchema]
     ) -> core_schema.CoreSchema:
         def validate_from_raw(value: RawMetadata) -> Metadata:
-            # TODO: Remove once this is fixed...
-            # Workaround packaging not recognizing metadata version 2.4 yet
-            if "metadata_version" in value and value["metadata_version"] == "2.4":
-                value["metadata_version"] = "2.3"
-
             return Metadata.from_raw(value)
 
         from_raw_schema = core_schema.chain_schema([

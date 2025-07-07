@@ -1,5 +1,4 @@
-{ lib
-, python3Packages
+{ python3Packages
 , ...}:
 rec {
   mkDependencies = pythonPkgs: with pythonPkgs; [
@@ -7,10 +6,11 @@ rec {
     pydantic
   ];
 
-  application = python3Packages.buildPythonApplication rec {
+  application = python3Packages.buildPythonApplication {
     pname = "python-flexseal";
     version = "0.1.0";
     src = ./.;
     propagatedBuildInputs = mkDependencies python3Packages;
+    format = "setuptools";
   };
 }

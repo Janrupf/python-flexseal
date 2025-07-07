@@ -20,6 +20,11 @@ class _MetadataPydanticAnnotation:
             _handler: Callable[[Any], core_schema.CoreSchema]
     ) -> core_schema.CoreSchema:
         def validate_from_raw(value: RawMetadata) -> Metadata:
+            if "license_expression" in value and value["metadata_version"] == "2.3":
+                # Some packages for some reason use license_expression even though metadata_version
+                # is 2.3, that doesn't work...
+                value["metadata_version"] = "2.4"
+
             return Metadata.from_raw(value)
 
         from_raw_schema = core_schema.chain_schema([
